@@ -51,6 +51,9 @@ try:
     response = requests.get(url)
     webpage_content = response.content
 
+    print(response)
+    print(webpage_content)
+
     soup = BeautifulSoup(webpage_content, 'html.parser')
 
     articles = soup.find_all('article')
