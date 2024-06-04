@@ -47,12 +47,14 @@ def remove_specific_words(text, words_to_remove):
 
 try:
     url = 'https://www.cnnindonesia.com/nasional/peristiwa'  
+    print(url)
     response = requests.get(url)
     webpage_content = response.content
 
     soup = BeautifulSoup(webpage_content, 'html.parser')
 
     articles = soup.find_all('article')
+    print(articles)
     title = []
     url = []
     for article in articles:
