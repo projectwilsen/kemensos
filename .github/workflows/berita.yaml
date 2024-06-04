@@ -13,9 +13,7 @@ jobs:
 
       - name: Move to etl folder 
         uses: actions/run-command@v2
-        with:
-          run: |
-            cd etl
+        run: cd etl
 
       - name: setup python
         uses: actions/setup-python@v4
