@@ -13,8 +13,6 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 from supabase.client import Client, create_client
-import cloudscraper
-
 
 groq_api_key = os.getenv("GROQ_API_KEY")
 supabase_url = os.getenv("SUPABASE_URL")
@@ -50,8 +48,7 @@ def remove_specific_words(text, words_to_remove):
 try:
     url = 'https://www.cnnindonesia.com/nasional/peristiwa'  
     print(url)
-    scraper = cloudscraper.create_scraper()
-    response = scraper.get(url)
+    response = requests.get(url)
     webpage_content = response.content
 
     print(response)
