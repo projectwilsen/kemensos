@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -18,13 +19,17 @@ class Berita(APIView):
         try:
             response = supabase.table('berita').select('*').execute()
             data = response.data
-            return Response(response, status=status.HTTP_200_OK)
+            return Response(data, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+class KataMasyarakatDetail(APIView):
+    def post(self, request, id):
+        try:
+            response = supabase.table('kata_masyarakat').select('*').eq('id',id).execute()
+            data = response.data
+            return Response(data, status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
     
-
-# def historical_market_cap_detail(request, pk):
-#     response = supabase.table('historical_market_cap').select('*').eq('id', pk).execute()
-#     data = response.data
-#     return Response(data)
 

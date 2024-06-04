@@ -17,10 +17,11 @@ from supabase.client import Client, create_client
 groq_api_key = os.getenv("GROQ_API_KEY")
 supabase_url = os.getenv("SUPABASE_URL")
 supabase_key = os.getenv("SUPABASE_KEY")
-print(groq_api_key)
 
 supabase_client = create_client(supabase_url, supabase_key)
 model = ChatGroq(temperature=0, model_name="llama3-70b-8192", groq_api_key = groq_api_key)
+
+print("start")
 
 def process_berita(text):
   template = """
