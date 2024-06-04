@@ -23,7 +23,7 @@ supabase_key = os.getenv("SUPABASE_KEY")
 supabase_client = create_client(supabase_url, supabase_key)
 model = ChatGroq(temperature=0, model_name="llama3-70b-8192", groq_api_key = groq_api_key)
 
-print("start")
+print("start ini pake yang etl")
 
 def process_berita(text):
     template = """
