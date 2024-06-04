@@ -51,7 +51,10 @@ try:
     url = 'https://www.cnnindonesia.com/nasional/peristiwa'  
     print(url)
     scraper = cloudscraper.create_scraper()
-    response = scraper.get(url)
+    headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    response = scraper.get(url, headers=headers)
     webpage_content = response.content
 
     print(response)

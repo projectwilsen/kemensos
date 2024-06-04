@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from supabase.client import Client, create_client
 
+
 groq_api_key = os.getenv("GROQ_API_KEY")
 supabase_url = os.getenv("SUPABASE_URL")
 supabase_key = os.getenv("SUPABASE_KEY")
