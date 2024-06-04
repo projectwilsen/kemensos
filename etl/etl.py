@@ -112,21 +112,25 @@ try:
     result = remove_specific_words(all_text, words_to_remove)
     print(result)
 
-    extracted_data = chain_extract_berita.invoke({"query": result})
-    extracted_data['url'] = row['url']
-    extracted_data['sumber'] = 'CNN Indonesia'
+    try:
+        extracted_data = chain_extract_berita.invoke({"query": result})
+        extracted_data['url'] = row['url']
+        extracted_data['sumber'] = 'CNN Indonesia'
 
-    pattern = r'/(\d{14})-'
-    match = re.search(pattern, url)
+        pattern = r'/(\d{14})-'
+        match = re.search(pattern, url)
 
-    if match:
-        date_time_str = match.group(1)
-        extracted_data['published_date'] = pd.Timestamp(date_time_str).strftime("%Y%m%d_%H%M%S")
-        supabase_client.table('berita').upsert(extracted_data,  returning="minimal", on_conflict="url").execute()
-    else:
-        print("No match found.")
+        if match:
+            date_time_str = match.group(1)
+            extracted_data['published_date'] = pd.Timestamp(date_time_str).strftime("%Y%m%d_%H%M%S")
+            supabase_client.table('berita').upsert(extracted_data,  returning="minimal", on_conflict="url").execute()
+        else:
+            print("No match found.")
 
-    print(extracted_data)
+        print(extracted_data)
+
+    except:
+        print("fail to parse")
 
 except Exception as e:
     print(e)
