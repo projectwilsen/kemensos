@@ -15,7 +15,7 @@ supabase_key = os.getenv("SUPABASE_KEY")
 supabase_client = create_client(supabase_url, supabase_key)
 
 model = ChatGroq(model="llama3-70b-8192",groq_api_key = groq_api_key)
-data = pd.read_csv('sentimen_pkh.csv', sep = ';')
+data = pd.read_csv('sentimen_blt.csv', sep = ';')
 
 def concatenate_text(df, category, threshold=100, sample_frac=0.2, random_state=1):
     filtered_df = df.query(f'category == {category}')
@@ -49,7 +49,21 @@ neg = concatenate_text(data, 0.0)
 pos_summary = summarize(pos,'positif')
 neg_summary = summarize(neg,'negatif')
 
-extracted_data = {"nama_program": data['jenis_program'][0],
+nama_program = data['jenis_program'][0]
+
+if nama_program == 'Program Keluarga Harapan (PKH)':
+    id = 1
+elif nama_program == 'Bantuan Pangan Non-Tunai (BPNT)':
+    id = 2
+elif nama_program == 'Bantuan Sosial (Bansos)':
+    id = 3
+elif nama_program == 'Bantuan Langsung Tunai (BLT)':
+    id = 4
+elif nama_program == 'Kartu Indonesia Pintar (KIP)':
+    id = 5
+
+extracted_data = {"id":id,
+                  "nama_program": nama_program,
                   "total_positive": len(data.query(f'category == 1.0')),
                   "summary_positive":pos_summary,
                   "total_negative": len(data.query(f'category == 0.0')),
