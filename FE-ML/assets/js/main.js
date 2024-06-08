@@ -292,20 +292,134 @@ document.addEventListener("DOMContentLoaded", () => {
     aos_init();
   });
 
-  // CAROUSEL
-  let items = document.querySelectorAll(".carousel .carousel-item");
+  /**
+   * CAROUSEL
+   */
+  // const prev = document.querySelector("#prev");
+  // const next = document.querySelector("#next");
 
-  items.forEach((el) => {
-    const minPerSlide = 6;
-    let next = el.nextElementSibling;
-    for (var i = 1; i < minPerSlide; i++) {
-      if (!next) {
-        // wrap carousel by using first child
-        next = items[0];
+  // let carouselVp = document.querySelector("#carousel-vp");
+
+  // let cCarouselInner = document.querySelector("#cCarousel-inner");
+  // let carouselInnerWidth = cCarouselInner.getBoundingClientRect().width;
+
+  // let leftValue = 0;
+
+  // // Variable used to set the carousel movement value (card's width + gap)
+  // const cardWidth = document.querySelector(".cCarousel-item").getBoundingClientRect().width;
+  // const gap = parseFloat(window.getComputedStyle(cCarouselInner).getPropertyValue("gap"), 10);
+  // const totalMovementSize = (cardWidth + gap) * 3; // Adjusted for 3 cards
+
+  // prev.addEventListener("click", () => {
+  //   if (leftValue < 0) {
+  //     leftValue += totalMovementSize;
+  //     cCarouselInner.style.left = leftValue + "px";
+  //   }
+  // });
+
+  // next.addEventListener("click", () => {
+  //   const carouselVpWidth = carouselVp.getBoundingClientRect().width;
+  //   if (carouselInnerWidth - Math.abs(leftValue) > carouselVpWidth) {
+  //     leftValue -= totalMovementSize;
+  //     cCarouselInner.style.left = leftValue + "px";
+  //   }
+  // });
+
+  // const mediaQuery510 = window.matchMedia("(max-width: 510px)");
+  // const mediaQuery770 = window.matchMedia("(max-width: 770px)");
+  // const mediaQuery1230 = window.matchMedia("(max-width: 1230px)");
+
+  // mediaQuery510.addEventListener("change", mediaManagement);
+  // mediaQuery770.addEventListener("change", mediaManagement);
+  // mediaQuery1230.addEventListener("change", mediaManagement);
+
+  // let oldViewportWidth = window.innerWidth;
+
+  // function mediaManagement() {
+  //   const newViewportWidth = window.innerWidth;
+
+  //   if (leftValue <= -totalMovementSize && oldViewportWidth < newViewportWidth) {
+  //     leftValue += totalMovementSize;
+  //     cCarouselInner.style.left = leftValue + "px";
+  //     oldViewportWidth = newViewportWidth;
+  //   } else if (leftValue <= -totalMovementSize && oldViewportWidth > newViewportWidth) {
+  //     leftValue -= totalMovementSize;
+  //     cCarouselInner.style.left = leftValue + "px";
+  //     oldViewportWidth = newViewportWidth;
+  //   }
+  // }
+  const prev = document.querySelector("#prev");
+  const next = document.querySelector("#next");
+
+  let carouselVp = document.querySelector("#carousel-vp");
+  let cCarouselInner = document.querySelector("#cCarousel-inner");
+
+  const cardWidth = document.querySelector(".cCarousel-item").getBoundingClientRect().width;
+  const gap = parseFloat(window.getComputedStyle(cCarouselInner).getPropertyValue("gap"), 10);
+  const totalMovementSize = (cardWidth + gap) * 3; // Adjusted for 3 cards
+
+  let leftValue = 0;
+  const totalCards = document.querySelectorAll(".cCarousel-item").length;
+
+  function updateCarousel() {
+    const cardsPerView = Math.floor(carouselVp.getBoundingClientRect().width / (cardWidth + gap));
+    const maxMovement = (totalCards - cardsPerView) * (cardWidth + gap);
+
+    if (leftValue < -maxMovement) {
+      leftValue = -maxMovement;
+    }
+
+    cCarouselInner.style.left = leftValue + "px";
+  }
+
+  prev.addEventListener("click", () => {
+    if (leftValue < 0) {
+      leftValue += totalMovementSize;
+      if (leftValue > 0) {
+        leftValue = 0;
       }
-      let cloneChild = next.cloneNode(true);
-      el.appendChild(cloneChild.children[0]);
-      next = next.nextElementSibling;
+      cCarouselInner.style.left = leftValue + "px";
     }
   });
+
+  next.addEventListener("click", () => {
+    const carouselVpWidth = carouselVp.getBoundingClientRect().width;
+    const remainingCards = totalCards - Math.ceil(Math.abs(leftValue) / (cardWidth + gap));
+    const cardsPerView = Math.floor(carouselVpWidth / (cardWidth + gap));
+    const maxMovement = (totalCards - cardsPerView) * (cardWidth + gap);
+
+    if (remainingCards > cardsPerView) {
+      leftValue -= totalMovementSize;
+      if (Math.abs(leftValue) > maxMovement) {
+        leftValue = -maxMovement;
+      }
+    } else if (remainingCards <= cardsPerView) {
+      leftValue = -maxMovement;
+    }
+
+    cCarouselInner.style.left = leftValue + "px";
+  });
+
+  window.addEventListener("resize", updateCarousel);
+
+  const mediaQuery510 = window.matchMedia("(max-width: 510px)");
+  const mediaQuery770 = window.matchMedia("(max-width: 770px)");
+  const mediaQuery1230 = window.matchMedia("(max-width: 1230px)");
+
+  mediaQuery510.addEventListener("change", mediaManagement);
+  mediaQuery770.addEventListener("change", mediaManagement);
+  mediaQuery1230.addEventListener("change", mediaManagement);
+
+  let oldViewportWidth = window.innerWidth;
+
+  function mediaManagement() {
+    const newViewportWidth = window.innerWidth;
+    if (oldViewportWidth !== newViewportWidth) {
+      oldViewportWidth = newViewportWidth;
+      updateCarousel();
+    }
+  }
+
+  // Initial setup
+  updateCarousel();
 });
