@@ -70,7 +70,7 @@ h6 {
   right: 15px;
   bottom: -15px;
   z-index: 99999;
-  background: var(--color-secondary);
+  background: var(--color-four);
   width: 44px;
   height: 44px;
   border-radius: 50px;
@@ -84,7 +84,7 @@ h6 {
 }
 
 .scroll-top:hover {
-  background: rgba(248, 90, 64, 0.8);
+  background: var(--color-two);
   color: #fff;
 }
 
@@ -178,6 +178,9 @@ h6 {
 
 .sticked-header-offset {
   margin-top: 70px;
+}
+.header i {
+  color: var(--color-four);
 }
 
 /*--------------------------------------------------------------
@@ -457,6 +460,9 @@ h6 {
 /*--------------------------------------------------------------
 # KATA MASYARAKAT Section
 --------------------------------------------------------------*/
+.kata {
+  background-color: var(--color-one);
+}
 .kata h1 {
   font-weight: bold;
   padding-top: 20px;
@@ -467,10 +473,13 @@ h6 {
 /*--------------------------------------------------------------
 # CAROUSEL Section
 --------------------------------------------------------------*/
+.carousel {
+  background-color: var(--color-one);
+}
 
 #cCarousel {
   position: relative;
-  max-width: 1300px; /* Adjusted for 6 cards */
+  max-width: 1350px; /* Adjusted for 6 cards */
   margin: auto;
 }
 
@@ -577,25 +586,74 @@ h6 {
   align-items: center;
 }
 .carousel .card img {
+  height: 150px;
+  object-fit: cover;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
+.carousel .card-title {
+  align-items: center;
+  font-weight: bold;
+}
 /*--------------------------------------------------------------
-# About Us Section
+# BANTUAN Section
 --------------------------------------------------------------*/
 .bantuan {
   min-height: 300px;
+}
+.bantuan h1 {
+  font-weight: bold;
+  padding-top: 20px;
 }
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 .footer {
   font-size: 14px;
-  background-color: var(--color-two);
+  background-color: var(--color-one);
   padding: 30px 0;
-  color: var(--color-one);
+  color: var(--color-four);
 }
 
 .footer .copyright {
   text-align: center;
+}
+
+/*--------------------------------------------------------------
+# PAGE LAIN
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+# PAGE-IMAGE / GAMBAAR ATAS
+--------------------------------------------------------------*/
+.page-image img {
+  height: 200px;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+/*--------------------------------------------------------------
+# PAGE-NAMA / NAMA PROGRAM
+--------------------------------------------------------------*/
+.page-nama {
+  background-color: white;
+}
+.page-nama h1 {
+  font-weight: bold;
+  padding-top: 20px;
+}
+.page-nama h6 {
+  padding-top: -30px;
+}
+
+/*--------------------------------------------------------------
+# PAGE-SENTIMEN / SENTIMEN POSITIVE DAN NEGATIVE
+--------------------------------------------------------------*/
+.page-sentimen {
+  min-height: 200px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.judul-sentimen {
+  /* padding-top: 20px; */
+  font-weight: bold;
 }
