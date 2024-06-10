@@ -15,7 +15,7 @@ supabase_key = os.getenv("SUPABASE_KEY")
 supabase_client = create_client(supabase_url, supabase_key)
 
 model = ChatGroq(model="llama3-70b-8192",groq_api_key = groq_api_key)
-data = pd.read_csv('sentimen_blt.csv', sep = ';')
+data = pd.read_csv('sentimen_sembako.csv', sep = ';')
 
 def concatenate_text(df, category, threshold=100, sample_frac=0.2, random_state=1):
     filtered_df = df.query(f'category == {category}')
@@ -55,12 +55,26 @@ if nama_program == 'Program Keluarga Harapan (PKH)':
     id = 1
 elif nama_program == 'Bantuan Pangan Non-Tunai (BPNT)':
     id = 2
-elif nama_program == 'Bantuan Sosial (Bansos)':
+elif nama_program == 'Program Bantuan Sosial (Bansos)':
     id = 3
 elif nama_program == 'Bantuan Langsung Tunai (BLT)':
     id = 4
 elif nama_program == 'Kartu Indonesia Pintar (KIP)':
     id = 5
+elif nama_program == 'Kartu Indonesia Sehat (KIS)':
+    id = 6
+elif nama_program == 'Bantuan Sosial Beras Sejahtera (Rastra)':
+    id = 7
+elif nama_program == 'Beras untuk Keluarga Miskin (RASKIN)':
+    id = 8
+elif nama_program == 'KUBE':
+    id = 9
+elif nama_program == 'Program Sembako':
+    id = 10
+elif nama_program == 'Rehabilitasi Sosial':
+    id = 11
+elif nama_program == 'KAT':
+    id = 12
 
 extracted_data = {"id":id,
                   "nama_program": nama_program,
